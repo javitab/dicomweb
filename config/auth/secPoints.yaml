@@ -1,0 +1,45 @@
+- id: 1
+  type: "admin"
+  name: "SuperUser"
+  desc: "User has Super User permissions (all security points)"
+- id: 2
+  type: "user"
+  name: "CreateUser"
+  desc: "User has permission to create new users"
+- id: 3
+  type: "user"
+  name: "CreateAPIKey"
+  desc: "User has permission to create API keys"
+- id: 4
+  type: "user"
+  name: "CLILogin"
+  desc: "User has permission to login via CLI"
+- id: 5
+  type: "user"
+  name: "WebLogin"
+  desc: "User has permission to login via web"
+- id: 6
+  type: "user"
+  name: "RemoveUserFromGroup"
+  desc: "User has permission to remove users from groups"
+- id: 7
+  type: "user"
+  name: "AddUserToGroup"
+  desc: "User has permission to add users to groups"
+- id: 8
+  type: "user"
+  name: "UpdateSecPoints"
+  desc: "User has permission to update security points"
+- id: 9
+  type: "user"
+  name: "SetLDAPUser"
+  desc: "User has permission to set IsLDAPUser for other users"
+
+###
+### Custom Security Points should start above 10,000
+###
+
+- id: 10001
+  type: "user"
+  name: "CustomSecPoint1"
+  desc: "User has permission to do something"

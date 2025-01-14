@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# Generate Updated Swagger Docs Files
+./gen_docs 
+
+# Start Debug Webserver
+go run main.go web debug

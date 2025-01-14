@@ -1,0 +1,525 @@
+basePath: /
+definitions:
+  api.GetServerEventsResponse:
+    properties:
+      events:
+        items:
+          $ref: '#/definitions/database.ServerEvent'
+        type: array
+      limit:
+        type: integer
+    type: object
+  auth.CreateUserInput:
+    properties:
+      email:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - email
+    - first_name
+    - last_name
+    - password
+    - username
+    type: object
+  auth.CreateUserResponse:
+    properties:
+      message:
+        enum:
+        - User created
+        - User already exists
+        - Error creating user
+        type: string
+    type: object
+  auth.EvalSP:
+    properties:
+      source:
+        type: string
+      sp:
+        $ref: '#/definitions/database.SecPoint'
+    type: object
+  auth.GenerateAPIKeyResponse:
+    properties:
+      apikey:
+        type: string
+      message:
+        enum:
+        - API Key generated
+        type: string
+      user:
+        type: string
+    type: object
+  auth.GetJWTFromAPIKeyInput:
+    properties:
+      key:
+        type: string
+    required:
+    - key
+    type: object
+  auth.GroupInfo:
+    properties:
+      db:
+        $ref: '#/definitions/database.Group'
+    type: object
+  auth.LoginUserInput:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  auth.SecPointInfo:
+    properties:
+      db:
+        $ref: '#/definitions/database.SecPoint'
+      referencingGroups:
+        items:
+          $ref: '#/definitions/auth.GroupInfo'
+        type: array
+    type: object
+  auth.UserInfo:
+    properties:
+      db:
+        $ref: '#/definitions/database.User'
+      isActiveUser:
+        type: boolean
+      isLDAPUser:
+        type: boolean
+      ldapgroups:
+        items:
+          type: string
+        type: array
+      securityPoints:
+        additionalProperties:
+          $ref: '#/definitions/auth.EvalSP'
+        type: object
+    type: object
+  database.APIKey:
+    properties:
+      createdAt:
+        type: string
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
+      description:
+        type: string
+      id:
+        type: integer
+      keyValue:
+        type: string
+      updatedAt:
+        type: string
+      userID:
+        type: integer
+      uuid_ID:
+        type: string
+    type: object
+  database.Group:
+    properties:
+      addSecPoints:
+        items:
+          $ref: '#/definitions/database.SecPoint'
+        type: array
+      createdAt:
+        type: string
+      delSecPoints:
+        items:
+          $ref: '#/definitions/database.SecPoint'
+        type: array
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
+      desc:
+        type: string
+      id:
+        type: integer
+      ldap_group:
+        type: string
+      name:
+        type: string
+      ovrSecPoints:
+        items:
+          $ref: '#/definitions/database.SecPoint'
+        type: array
+      priority:
+        type: integer
+      updatedAt:
+        type: string
+    type: object
+  database.SecPoint:
+    properties:
+      ID:
+        type: integer
+      createdAt:
+        type: string
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
+      desc:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      sp_group:
+        type: string
+      type:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  database.ServerEvent:
+    properties:
+      archived:
+        type: boolean
+      createdAt:
+        type: string
+      dateTime:
+        type: string
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
+      details:
+        type: string
+      eventType:
+        type: string
+      id:
+        type: integer
+      serverRunID:
+        type: string
+      status:
+        type: string
+      updatedAt:
+        type: string
+      uuid_ID:
+        type: string
+    type: object
+  database.User:
+    properties:
+      apikeys:
+        items:
+          $ref: '#/definitions/database.APIKey'
+        type: array
+      createdAt:
+        type: string
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
+      email:
+        type: string
+      firstName:
+        type: string
+      groups:
+        items:
+          $ref: '#/definitions/database.Group'
+        type: array
+      id:
+        type: integer
+      isLDAPUser:
+        default: false
+        type: boolean
+      lastName:
+        type: string
+      updatedAt:
+        type: string
+      userAddSecPoints:
+        items:
+          $ref: '#/definitions/database.SecPoint'
+        type: array
+      userDelSecPoints:
+        items:
+          $ref: '#/definitions/database.SecPoint'
+        type: array
+      userOvrSecPoints:
+        items:
+          $ref: '#/definitions/database.SecPoint'
+        type: array
+      username:
+        type: string
+      uuid_ID:
+        type: string
+    type: object
+  gorm.DeletedAt:
+    properties:
+      time:
+        type: string
+      valid:
+        description: Valid is true if Time is not NULL
+        type: boolean
+    type: object
+host: localhost:8080
+info:
+  contact:
+    name: John Avitable
+    url: https://github.com/javitab
+  description: This is a sample Go-based CRUD Application Template
+  license:
+    name: GPL-3.0
+    url: https://github.com/javitab/go-web/blob/main/LICENSE
+  title: Go Web API Documentation
+  version: "1.0"
+paths:
+  /api/server_events:
+    get:
+      consumes:
+      - application/json
+      description: Gets all server events from database matching filter criteria
+      parameters:
+      - description: search filter
+        in: query
+        name: limit
+        type: string
+      - description: EventType to filter for
+        in: query
+        name: EventType
+        type: string
+      - description: ServerRunID to filter for
+        in: query
+        name: ServerRunID
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetServerEventsResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Get Logged Server Events
+      tags:
+      - api
+  /auth/create_user:
+    post:
+      consumes:
+      - application/json
+      description: Create a new user given a CreateUserInput object
+      parameters:
+      - description: query params
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/auth.CreateUserInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/auth.CreateUserResponse'
+      summary: Create a new user via API
+      tags:
+      - login
+  /auth/generate_api_key:
+    post:
+      consumes:
+      - application/json
+      description: Given a username, gives details about user
+      parameters:
+      - description: desc for key usage
+        in: formData
+        name: description
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/auth.GenerateAPIKeyResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Generate API Key
+      tags:
+      - security
+  /auth/generate_jwt:
+    post:
+      consumes:
+      - application/json
+      description: Authenticate a user given an APIKey. Returns a JWT token upon successful
+        authentication
+      parameters:
+      - description: query params
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/auth.GetJWTFromAPIKeyInput'
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Get JWT from API Key
+      tags:
+      - login
+  /auth/group:
+    get:
+      consumes:
+      - application/json
+      description: Given a group id, gives details about group
+      parameters:
+      - description: groupid to lookup
+        in: query
+        name: group_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/auth.UserInfo'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: Get group info
+      tags:
+      - security
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Authenticate a user given a LoginUserInput object. Returns a JWT
+        token upon successful authentication
+      parameters:
+      - description: query params
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/auth.LoginUserInput'
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Login user
+      tags:
+      - login
+  /auth/sec_point:
+    get:
+      consumes:
+      - application/json
+      description: Returns information about a single security point including groups
+        with FK relationships
+      parameters:
+      - description: SPID to search
+        in: query
+        name: spid
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/auth.SecPointInfo'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: Get information about a given security point
+      tags:
+      - security
+  /auth/update_user:
+    post:
+      consumes:
+      - application/json
+      description: Given a username, will make given updates
+      parameters:
+      - description: username to update
+        in: query
+        name: username
+        required: true
+        type: string
+      - description: action to perform
+        enum:
+        - delete_user
+        - undelete_user
+        - add_group
+        - remove_group
+        - add_user_sec_point
+        - remove_user_sec_point
+        in: query
+        name: action
+        required: true
+        type: string
+      - description: 'reason for update (incident #, etc.)'
+        in: query
+        name: reason
+        required: true
+        type: string
+      - description: value to set
+        in: query
+        name: value
+        required: true
+        type: string
+      - description: field to append user-level security point to
+        enum:
+        - UserAddSecPoints
+        - UserDelSecPoints
+        - UserOvrSecPoints
+        in: query
+        name: sec_point_field
+        type: string
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: Update User Record
+      tags:
+      - security
+  /auth/user:
+    get:
+      consumes:
+      - application/json
+      description: Given a username, gives details about user
+      parameters:
+      - description: username to lookup
+        in: query
+        name: username
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/auth.UserInfo'
+      security:
+      - ApiKeyAuth: []
+      summary: Get user info
+      tags:
+      - security
+securityDefinitions:
+  ApiKeyAuth:
+    description: JWT can be obtained from `login` or `generate_jwt` endpoints. Be
+      sure to include `Bearer` before the JWT
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

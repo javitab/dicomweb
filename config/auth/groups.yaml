@@ -1,0 +1,21 @@
+- id: 1
+  name: "Admin Group"
+  ldap_group: "AP.YH.AA.All.Dev"
+  priority: 0
+  desc: "Group for admin users"
+  add_sec_points:
+    - 2
+    - 3
+    - 5
+    - 4
+    - 7
+    - 8
+    - 9
+- id: 2
+  name: "User Group"
+  ldap_group: "ITS_All"
+  priority: 1
+  desc: "Group for regular users"
+  add_sec_points:
+    - 3
+    - 5
