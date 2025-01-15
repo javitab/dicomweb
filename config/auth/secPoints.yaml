@@ -41,5 +41,5 @@
 
 - id: 10001
   type: "user"
-  name: "CustomSecPoint1"
-  desc: "User has permission to do something"
+  name: "CreateDicomJob"
+  desc: "User has permission to create a new DICOM Job"
