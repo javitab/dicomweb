@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Generate Updated Swagger Docs Files
+./gen_docs 
+
+# Start Debug Webserver
+go build -o dicomweb main.go
+
+# Launch with no parameters
+./dicomweb
