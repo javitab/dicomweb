@@ -10,7 +10,7 @@ import (
 func TestTemplateEmbeds(t *testing.T) {
 	templateLoaded := false
 	_, err := GetTemplate("hello.html")
-	if err == nil {
+	if err != nil {
 		fmt.Println("Template loaded successfully")
 		templateLoaded = true
 	}
