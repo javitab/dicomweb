@@ -21,7 +21,7 @@ type UserAction struct {
 //		@Summary		Update User Record
 //		@Security		ApiKeyAuth
 //		@Schemes		http
-//		@Tags			security
+//		@Tags			user/group security
 //		@Description	Given a username, will make given updates
 //	 	@Param 			username query string true "username to update"
 //	 	@Param 			action query string true "action to perform" Enums(delete_user,undelete_user,add_group,remove_group,add_user_sec_point,remove_user_sec_point)

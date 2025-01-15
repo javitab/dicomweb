@@ -72,6 +72,11 @@ const docTemplate = `{
         },
         "/auth/create_user": {
             "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Create a new user given a CreateUserInput object",
                 "consumes": [
                     "application/json"
@@ -80,7 +85,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "login"
+                    "user/group security"
                 ],
                 "summary": "Create a new user via API",
                 "parameters": [
@@ -119,7 +124,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "security"
+                    "user/group security"
                 ],
                 "summary": "Generate API Key",
                 "parameters": [
@@ -190,7 +195,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "security"
+                    "user/group security"
                 ],
                 "summary": "Get group info",
                 "parameters": [
@@ -267,7 +272,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "security"
+                    "user/group security"
                 ],
                 "summary": "Get information about a given security point",
                 "parameters": [
@@ -310,7 +315,7 @@ const docTemplate = `{
                     "text/plain"
                 ],
                 "tags": [
-                    "security"
+                    "user/group security"
                 ],
                 "summary": "Update User Record",
                 "parameters": [
@@ -387,7 +392,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "security"
+                    "user/group security"
                 ],
                 "summary": "Get user info",
                 "parameters": [
@@ -567,35 +572,6 @@ const docTemplate = `{
                 }
             }
         },
-        "database.APIKey": {
-            "type": "object",
-            "properties": {
-                "createdAt": {
-                    "type": "string"
-                },
-                "deletedAt": {
-                    "$ref": "#/definitions/gorm.DeletedAt"
-                },
-                "description": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "integer"
-                },
-                "keyValue": {
-                    "type": "string"
-                },
-                "updatedAt": {
-                    "type": "string"
-                },
-                "userID": {
-                    "type": "integer"
-                },
-                "uuid_ID": {
-                    "type": "string"
-                }
-            }
-        },
         "database.Group": {
             "type": "object",
             "properties": {
@@ -716,12 +692,6 @@ const docTemplate = `{
         "database.User": {
             "type": "object",
             "properties": {
-                "apikeys": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/database.APIKey"
-                    }
-                },
                 "createdAt": {
                     "type": "string"
                 },

@@ -103,25 +103,6 @@ definitions:
           $ref: '#/definitions/auth.EvalSP'
         type: object
     type: object
-  database.APIKey:
-    properties:
-      createdAt:
-        type: string
-      deletedAt:
-        $ref: '#/definitions/gorm.DeletedAt'
-      description:
-        type: string
-      id:
-        type: integer
-      keyValue:
-        type: string
-      updatedAt:
-        type: string
-      userID:
-        type: integer
-      uuid_ID:
-        type: string
-    type: object
   database.Group:
     properties:
       addSecPoints:
@@ -201,10 +182,6 @@ definitions:
     type: object
   database.User:
     properties:
-      apikeys:
-        items:
-          $ref: '#/definitions/database.APIKey'
-        type: array
       createdAt:
         type: string
       deletedAt:
@@ -312,9 +289,11 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/auth.CreateUserResponse'
+      security:
+      - ApiKeyAuth: []
       summary: Create a new user via API
       tags:
-      - login
+      - user/group security
   /auth/generate_api_key:
     post:
       consumes:
@@ -337,7 +316,7 @@ paths:
       - ApiKeyAuth: []
       summary: Generate API Key
       tags:
-      - security
+      - user/group security
   /auth/generate_jwt:
     post:
       consumes:
@@ -387,7 +366,7 @@ paths:
       - ApiKeyAuth: []
       summary: Get group info
       tags:
-      - security
+      - user/group security
   /auth/login:
     post:
       consumes:
@@ -438,7 +417,7 @@ paths:
       - ApiKeyAuth: []
       summary: Get information about a given security point
       tags:
-      - security
+      - user/group security
   /auth/update_user:
     post:
       consumes:
@@ -491,7 +470,7 @@ paths:
       - ApiKeyAuth: []
       summary: Update User Record
       tags:
-      - security
+      - user/group security
   /auth/user:
     get:
       consumes:
@@ -514,7 +493,7 @@ paths:
       - ApiKeyAuth: []
       summary: Get user info
       tags:
-      - security
+      - user/group security
 securityDefinitions:
   ApiKeyAuth:
     description: JWT can be obtained from `login` or `generate_jwt` endpoints. Be

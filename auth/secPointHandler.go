@@ -20,7 +20,7 @@ const (
 //		@Summary		Get information about a given security point
 //		@Security		ApiKeyAuth
 //		@Schemes		http
-//		@Tags			security
+//		@Tags			user/group security
 //		@Description	Returns information about a single security point including groups with FK relationships
 //	 	@Param 			spid	query	int	true	"SPID to search"
 //		@Accept			json

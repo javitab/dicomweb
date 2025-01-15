@@ -12,7 +12,7 @@ import (
 //		@Summary		Get group info
 //		@Security		ApiKeyAuth
 //		@Schemes		http
-//		@Tags			security
+//		@Tags			user/group security
 //		@Description	Given a group id, gives details about group
 //	 	@Param 			group_id query int true "groupid to lookup"
 //		@Accept			json

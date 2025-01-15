@@ -25,8 +25,9 @@ type CreateUserResponse struct {
 // CreateUser godoc
 //
 //		@Summary		Create a new user via API
+//		@Security		ApiKeyAuth
 //		@Schemes		http
-//		@Tags			login
+//		@Tags			user/group security
 //		@Description	Create a new user given a CreateUserInput object
 //	 	@Param request body CreateUserInput true "query params"
 //		@Accept			json
@@ -190,7 +191,7 @@ type GetUserInput struct {
 //		@Summary		Get user info
 //		@Security		ApiKeyAuth
 //		@Schemes		http
-//		@Tags			security
+//		@Tags			user/group security
 //		@Description	Given a username, gives details about user
 //	 	@Param 			username query string true "username to lookup"
 //		@Accept			json
@@ -222,7 +223,7 @@ type GenerateAPIKeyResponse struct {
 //		@Summary		Generate API Key
 //		@Security		ApiKeyAuth
 //		@Schemes		http
-//		@Tags			security
+//		@Tags			user/group security
 //		@Description	Given a username, gives details about user
 //	 	@Param description	formData	string	true	"desc for key usage"
 //		@Accept			json
