@@ -1,5 +1,5 @@
 # go-web
-[![Go](https://github.com/javitab/go-web/actions/workflows/go.yml/badge.svg)](https://github.com/javitab/go-web/actions/workflows/go.yml)
+[![Go](https://github.com/javitab/dicomweb-backend/actions/workflows/go.yml/badge.svg)](https://github.com/javitab/dicmoweb-backend/actions/workflows/go.yml)
 
 # Description
 This repository acts as a template for creating a Go project involving a database/api/cli/web view based application. Includes basic interfaces for maintaing user database and interactions with LDAP for SSO.
